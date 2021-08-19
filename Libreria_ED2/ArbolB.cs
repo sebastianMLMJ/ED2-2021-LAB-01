@@ -19,6 +19,32 @@ namespace Libreria_ED2
                 datos = new T[_grado];
                 hijos = new Nodo[_grado + 1];
             }
+            public void InsertarOrdenar(T valor)
+            {
+                int posicionInsertar = 0;
+                bool posicionEncontrada = false;
+
+                while (posicionEncontrada == false)
+                {
+                    if (datos[posicionInsertar].CompareTo(valor) == -1)
+                    {
+                        posicionEncontrada = true;
+                    }
+                    else
+                    {
+                        posicionInsertar++;
+                    }
+                }
+
+                for (int i = grado - 1; i > posicionInsertar; i--)
+                {
+                    datos[i] = datos[i - 1];
+                }
+
+                datos[posicionInsertar] = valor;
+
+
+            }
         }
     }
 }
