@@ -65,7 +65,6 @@ namespace Libreria_ED2
             grado = _grado;
         }
         
-
         public void insertar(T dato)
         {
             if (Raiz==null)
@@ -78,9 +77,39 @@ namespace Libreria_ED2
             {
                 Nodo hojaInsertar = Raiz;
                 hojaInsertar.InsertarOrdenar(dato);
-
-                
+                if (EqualityComparer<T>.Default.Equals(hojaInsertar.datos[grado-1],default)==false)
+                {
+                    DividirRaiz(ref hojaInsertar);
+                }
             }
+        }
+
+        private void DividirRaiz(ref Nodo buscarHojaref)
+        {
+            Nodo nuevoHermano = new Nodo(grado);
+            Nodo nuevaRaiz = new Nodo(grado);
+            int valorMedio = grado / 2;
+            
+            //Pasando valor medio para nueva raiz
+            nuevaRaiz.datos[0] = buscarHojaref.datos[valorMedio];
+            buscarHojaref.datos[valorMedio] = default;
+
+            //Pasando valores medios grandes a nuevo hermano
+            int j = 0;
+            for (int i = valorMedio+1; i < grado; i++)
+            {
+                nuevoHermano.datos[j] = buscarHojaref.datos[i];
+                nuevoHermano.hijos[j] = buscarHojaref.hijos[i];
+                buscarHojaref.datos[i] = default;
+                buscarHojaref.hijos[i] = default;
+                j++;
+            }
+
+            nuevaRaiz.hijos[0] = buscarHojaref;
+            nuevaRaiz.hijos[1] = nuevoHermano;
+            buscarHojaref.Padre = nuevaRaiz;
+            nuevoHermano.Padre = nuevaRaiz;
+            Raiz = nuevaRaiz;
         }
 
 
