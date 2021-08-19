@@ -12,7 +12,8 @@ namespace ConsolaDePruebas
             tester.insertar(4);
             tester.insertar(10);
             tester.insertar(6);
-
+            tester.insertar(1);
+            tester.insertar(15);
             Console.Read();
           
 

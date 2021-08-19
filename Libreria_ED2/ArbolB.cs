@@ -54,8 +54,8 @@ namespace Libreria_ED2
                 datos[posicionInsertar] = valor;
             }
         }
-
         #endregion
+
 
         private int grado;
         private Nodo Raiz=null;
@@ -76,6 +76,7 @@ namespace Libreria_ED2
             else
             {
                 Nodo hojaInsertar = Raiz;
+                PosicionarInsertar(ref hojaInsertar, dato);
                 hojaInsertar.InsertarOrdenar(dato);
                 if (EqualityComparer<T>.Default.Equals(hojaInsertar.datos[grado-1],default)==false)
                 {
@@ -84,6 +85,38 @@ namespace Libreria_ED2
             }
         }
 
+        private void PosicionarInsertar(ref Nodo buscarHojaref,T dato)
+        {
+            bool cambioNodo;
+            int i;
+
+            while (buscarHojaref.hijos[0]!=null)
+            {
+                i = 0;
+                cambioNodo = false;
+
+                while (cambioNodo == false)
+                {
+                    if (EqualityComparer<T>.Default.Equals(buscarHojaref.datos[i], default) == false)
+                    {
+                        if (dato.CompareTo(buscarHojaref.datos[i]) == -1)
+                        {
+                            buscarHojaref = buscarHojaref.hijos[i];
+                            cambioNodo = true;
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        buscarHojaref = buscarHojaref.hijos[i];
+                        cambioNodo = true;
+                    }
+                }
+            }
+        }
         private void DividirRaiz(ref Nodo buscarHojaref)
         {
             Nodo nuevoHermano = new Nodo(grado);
@@ -105,13 +138,14 @@ namespace Libreria_ED2
                 j++;
             }
 
+            //Asignando apuntadores y la nueva raiz
             nuevaRaiz.hijos[0] = buscarHojaref;
             nuevaRaiz.hijos[1] = nuevoHermano;
             buscarHojaref.Padre = nuevaRaiz;
             nuevoHermano.Padre = nuevaRaiz;
             Raiz = nuevaRaiz;
         }
-
+       
 
     }
 }
