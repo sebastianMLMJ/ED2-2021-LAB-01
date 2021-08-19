@@ -8,13 +8,16 @@ namespace ConsolaDePruebas
         {
             ArbolB<int> tester = new ArbolB<int>(3);
 
-
-            tester.insertar(4);
             tester.insertar(10);
-            tester.insertar(6);
-            tester.insertar(1);
-            tester.insertar(15);
+            tester.insertar(20);
+            tester.insertar(30);
+            tester.insertar(40);
+            tester.insertar(50);
+            tester.insertar(60);
+            //tester.insertar(60);
+            
             Console.Read();
+            
           
 
            

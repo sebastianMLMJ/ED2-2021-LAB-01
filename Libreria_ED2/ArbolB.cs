@@ -11,7 +11,7 @@ namespace Libreria_ED2
         {
             public T[] datos;
             public Nodo[] hijos;
-            public Nodo Padre;
+            public Nodo padre=null;
             int grado;
 
             public Nodo(int _grado)
@@ -19,8 +19,8 @@ namespace Libreria_ED2
                 grado = _grado;
                 datos = new T[_grado];
                 hijos = new Nodo[_grado + 1];
-                Padre = null;
             }
+
 
             public void InsertarOrdenar(T valor)
             {
@@ -78,10 +78,19 @@ namespace Libreria_ED2
                 Nodo hojaInsertar = Raiz;
                 PosicionarInsertar(ref hojaInsertar, dato);
                 hojaInsertar.InsertarOrdenar(dato);
-                if (EqualityComparer<T>.Default.Equals(hojaInsertar.datos[grado-1],default)==false)
+                while (EqualityComparer<T>.Default.Equals(hojaInsertar.datos[grado-1], default) == false)
                 {
-                    DividirRaiz(ref hojaInsertar);
+                    if (hojaInsertar.padre==null)
+                    {
+                        DividirRaiz(ref hojaInsertar);
+                    }
+                    else
+                    {
+                        DividirSubArbol(ref hojaInsertar);
+                    }
+                  
                 }
+                
             }
         }
 
@@ -121,19 +130,25 @@ namespace Libreria_ED2
         {
             Nodo nuevoHermano = new Nodo(grado);
             Nodo nuevaRaiz = new Nodo(grado);
-            int valorMedio = grado / 2;
+            
+            int posicionMedia = grado / 2;
             
             //Pasando valor medio para nueva raiz
-            nuevaRaiz.datos[0] = buscarHojaref.datos[valorMedio];
-            buscarHojaref.datos[valorMedio] = default;
+            nuevaRaiz.datos[0] = buscarHojaref.datos[posicionMedia];
+            buscarHojaref.datos[posicionMedia] = default;
 
             //Pasando valores medios grandes a nuevo hermano
             int j = 0;
-            for (int i = valorMedio+1; i < grado; i++)
+            for (int i = posicionMedia+1; i < grado; i++)
             {
                 nuevoHermano.datos[j] = buscarHojaref.datos[i];
-                nuevoHermano.hijos[j] = buscarHojaref.hijos[i];
                 buscarHojaref.datos[i] = default;
+                j++;
+            }
+            j = 0;
+            for (int i = posicionMedia+1; i < grado+1; i++)
+            {
+                nuevoHermano.hijos[j] = buscarHojaref.hijos[i];
                 buscarHojaref.hijos[i] = default;
                 j++;
             }
@@ -141,11 +156,75 @@ namespace Libreria_ED2
             //Asignando apuntadores y la nueva raiz
             nuevaRaiz.hijos[0] = buscarHojaref;
             nuevaRaiz.hijos[1] = nuevoHermano;
-            buscarHojaref.Padre = nuevaRaiz;
-            nuevoHermano.Padre = nuevaRaiz;
+            buscarHojaref.padre = nuevaRaiz;
+            nuevoHermano.padre = nuevaRaiz;
             Raiz = nuevaRaiz;
         }
-       
+        private void DividirSubArbol(ref Nodo buscarHojaref)
+        {
+            int posicionMedia = grado / 2;
+            int posicionSubida=0;
+            bool posiciónEncontrada=false;
+            Nodo nuevoHermano = new Nodo(grado);
+            Nodo PadreAux = buscarHojaref.padre;
+
+            T valorMedio = buscarHojaref.datos[posicionMedia];
+            buscarHojaref.datos[posicionMedia] = default;
+           
+            //Buscando posicion para subir el valor
+            while (posiciónEncontrada==false)
+            {
+                if (EqualityComparer<T>.Default.Equals(PadreAux.datos[posicionSubida],default)==false)
+                {
+                    if (valorMedio.CompareTo(PadreAux.datos[posicionSubida])==-1)
+                    {
+                        posiciónEncontrada = true;
+                    }
+                    else
+                    {
+                        posicionSubida++;
+                    }
+                }
+                else
+                {
+                    posiciónEncontrada = true;
+                }
+            }
+            //Abriendo espacio para subir el valor
+
+            for (int i = grado-1; i > posicionSubida; i--)
+            {
+                PadreAux.datos[i] = PadreAux.datos[i - 1];
+            }
+            for (int i = grado; i >posicionSubida+1; i--)
+            {
+                PadreAux.hijos[i] = PadreAux.hijos[i-1];
+            }
+
+            PadreAux.datos[posicionSubida] = valorMedio;
+
+            int j = 0;
+
+            for (int i = posicionMedia+1; i < grado; i++)
+            {
+                nuevoHermano.datos[j] = buscarHojaref.datos[i];
+                buscarHojaref.datos[i] = default;
+                j++;
+               
+            }
+            j = 0;
+            for (int i = posicionMedia + 1; i < grado; i++)
+            {
+                nuevoHermano.hijos[j] = buscarHojaref.hijos[i];
+                buscarHojaref.hijos[i] = default;
+                j++;
+            }
+
+            PadreAux.hijos[posicionSubida + 1] = nuevoHermano;
+            nuevoHermano.padre = PadreAux;
+            buscarHojaref = buscarHojaref.padre;
+        }
+
 
     }
 }
