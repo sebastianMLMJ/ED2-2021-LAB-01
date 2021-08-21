@@ -65,7 +65,6 @@ namespace Libreria_ED2
         {
             grado = _grado;
         }
-        
         public void insertar(T dato)
         {
             if (Raiz==null)
@@ -94,13 +93,11 @@ namespace Libreria_ED2
                 
             }
         }
-
         public void InOrden()
         {
             Nodo Recorredor = Raiz;
             RecursividadInorden(Recorredor);
         }
-
         private void RecursividadInorden(Nodo Recorrer)
         {
 
@@ -120,8 +117,7 @@ namespace Libreria_ED2
                 }
             }
         }
-
-
+        
         #region Auxiliares insertar
         private void PosicionarInsertar(ref Nodo buscarHojaref,T dato)
         {
@@ -262,6 +258,64 @@ namespace Libreria_ED2
             buscarHojaref = buscarHojaref.padre;
         }
         #endregion
+        public bool Buscar(T dato)
+        {
+            Nodo Buscar = Raiz;
+            return BuscarValor(ref Buscar,dato);
+        }
+        private bool BuscarValor(ref Nodo buscarValor, T dato)
+        {
+            bool cambioNodo;
+            int i;
+            bool valorEncontrado = false;
+            do
+            {
+                i = 0;
+                cambioNodo = false;
+
+                while (cambioNodo == false)
+                {
+                    if (EqualityComparer<T>.Default.Equals(buscarValor.datos[i], default) == false)
+                    {
+                        if (dato.CompareTo(buscarValor.datos[i]) == 0)
+                        {
+                            cambioNodo = true;
+                            valorEncontrado = true;
+                        }
+                        else if (dato.CompareTo(buscarValor.datos[i]) == -1)
+                        {
+                            buscarValor = buscarValor.hijos[i];
+                            cambioNodo = true;
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        buscarValor = buscarValor.hijos[i];
+                        cambioNodo = true;
+                    }
+                }
+
+            } while (buscarValor.hijos[0] != null && valorEncontrado == false);
+
+            if (buscarValor.hijos[0]==null)
+            {
+                for (int j = 0; j < grado; j++)
+                {
+                    if (EqualityComparer<T>.Default.Equals(buscarValor.datos[j], default) == false)
+                    {
+                        if (dato.CompareTo(buscarValor.datos[j]) == 0)
+                        {
+                            valorEncontrado = true;
+                        }
+                    }
+                }
+            }
+            return valorEncontrado;
+        }
 
 
 
