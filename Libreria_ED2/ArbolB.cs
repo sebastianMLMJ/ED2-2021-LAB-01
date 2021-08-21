@@ -60,6 +60,8 @@ namespace Libreria_ED2
         private int grado;
         private Nodo Raiz=null;
 
+        
+
         public ArbolB(int _grado)
         {
             grado = _grado;
@@ -94,6 +96,8 @@ namespace Libreria_ED2
             }
         }
 
+
+        #region Auxiliares insertar
         private void PosicionarInsertar(ref Nodo buscarHojaref,T dato)
         {
             bool cambioNodo;
@@ -149,6 +153,10 @@ namespace Libreria_ED2
             for (int i = posicionMedia+1; i < grado+1; i++)
             {
                 nuevoHermano.hijos[j] = buscarHojaref.hijos[i];
+                if (nuevoHermano.hijos[j] !=null)
+                {
+                    nuevoHermano.hijos[j].padre = nuevoHermano;
+                }
                 buscarHojaref.hijos[i] = default;
                 j++;
             }
@@ -213,9 +221,13 @@ namespace Libreria_ED2
                
             }
             j = 0;
-            for (int i = posicionMedia + 1; i < grado; i++)
+            for (int i = posicionMedia + 1; i < grado+1; i++)
             {
                 nuevoHermano.hijos[j] = buscarHojaref.hijos[i];
+                if (nuevoHermano.hijos[j] != null)
+                {
+                    nuevoHermano.hijos[j].padre = nuevoHermano;
+                }
                 buscarHojaref.hijos[i] = default;
                 j++;
             }
@@ -224,6 +236,8 @@ namespace Libreria_ED2
             nuevoHermano.padre = PadreAux;
             buscarHojaref = buscarHojaref.padre;
         }
+        #endregion
+
 
 
     }
