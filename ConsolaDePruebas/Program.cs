@@ -95,6 +95,13 @@ namespace ConsolaDePruebas
             tester.insertar(59);
             tester.insertar(60);
 
+            tester.InOrden();
+
+            foreach (var item in tester.RecolectorRecorridos)
+            {
+                Console.WriteLine(item);
+                
+            }
 
 
 

@@ -59,9 +59,8 @@ namespace Libreria_ED2
 
         private int grado;
         private Nodo Raiz=null;
-
+        public List<T> RecolectorRecorridos=new List<T>();
         
-
         public ArbolB(int _grado)
         {
             grado = _grado;
@@ -93,6 +92,32 @@ namespace Libreria_ED2
                   
                 }
                 
+            }
+        }
+
+        public void InOrden()
+        {
+            Nodo Recorredor = Raiz;
+            RecursividadInorden(Recorredor);
+        }
+
+        private void RecursividadInorden(Nodo Recorrer)
+        {
+
+            if (Recorrer.hijos[0] != null)
+            {
+                RecursividadInorden(Recorrer.hijos[0]);
+            }
+            for (int i = 0; i < grado - 1; i++)
+            {
+                if (EqualityComparer<T>.Default.Equals(Recorrer.datos[i],default)==false)
+                {
+                    RecolectorRecorridos.Add(Recorrer.datos[i]);
+                }
+                if (Recorrer.hijos[i + 1] != null)
+                {
+                    RecursividadInorden(Recorrer.hijos[i + 1]);
+                }
             }
         }
 
