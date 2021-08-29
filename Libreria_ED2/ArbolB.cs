@@ -93,30 +93,6 @@ namespace Libreria_ED2
                 
             }
         }
-        public void InOrden()
-        {
-            Nodo Recorredor = Raiz;
-            RecursividadInorden(Recorredor);
-        }
-        private void RecursividadInorden(Nodo Recorrer)
-        {
-
-            if (Recorrer.hijos[0] != null)
-            {
-                RecursividadInorden(Recorrer.hijos[0]);
-            }
-            for (int i = 0; i < grado - 1; i++)
-            {
-                if (EqualityComparer<T>.Default.Equals(Recorrer.datos[i],default)==false)
-                {
-                    RecolectorRecorridos.Add(Recorrer.datos[i]);
-                }
-                if (Recorrer.hijos[i + 1] != null)
-                {
-                    RecursividadInorden(Recorrer.hijos[i + 1]);
-                }
-            }
-        }
         
         #region Auxiliares insertar
         private void PosicionarInsertar(ref Nodo buscarHojaref,T dato)
@@ -316,6 +292,91 @@ namespace Libreria_ED2
             }
             return valorEncontrado;
         }
+        public void InOrden()
+        {
+            Nodo Recorredor = Raiz;
+            RecursividadInorden(Recorredor);
+        }
+        private void RecursividadInorden(Nodo Recorrer)
+        {
+
+            if (Recorrer.hijos[0] != null)
+            {
+                RecursividadInorden(Recorrer.hijos[0]);
+            }
+            for (int i = 0; i < grado - 1; i++)
+            {
+                if (EqualityComparer<T>.Default.Equals(Recorrer.datos[i], default) == false)
+                {
+                    RecolectorRecorridos.Add(Recorrer.datos[i]);
+                }
+                if (Recorrer.hijos[i + 1] != null)
+                {
+                    RecursividadInorden(Recorrer.hijos[i + 1]);
+                }
+            }
+        }
+        public void PostOrden()
+        {
+            Nodo Recorredor = Raiz;
+            RecursividadPostOrden(Recorredor);
+        }
+        private void RecursividadPostOrden(Nodo Recorrer)
+        {
+
+            if (Recorrer.hijos[0] != null)
+            {
+                RecursividadPostOrden(Recorrer.hijos[0]);
+            }
+            for (int i = 0; i < grado - 1; i++)
+            {
+                if (Recorrer.hijos[i + 1] != null)
+                {
+                    RecursividadPostOrden(Recorrer.hijos[i + 1]);
+                }
+                if (EqualityComparer<T>.Default.Equals(Recorrer.datos[i], default) == false)
+                {
+                    RecolectorRecorridos.Add(Recorrer.datos[i]);
+                }
+            }
+
+        }
+        public void PreOrden()
+        {
+            Nodo Recorredor = Raiz;
+            RecursividadPreOrden(Recorredor);
+        }
+        private void RecursividadPreOrden(Nodo Recorrer)
+        {
+            for (int i = 0; i < grado - 1; i++)
+            {
+                if (EqualityComparer<T>.Default.Equals(Recorrer.datos[i], default) == false)
+                {
+                    RecolectorRecorridos.Add(Recorrer.datos[i]);
+                }
+
+            }
+            if (Recorrer.hijos[0] != null)
+            {
+                RecursividadPreOrden(Recorrer.hijos[0]);
+            }
+
+            for (int i = 0; i < grado - 1; i++)
+            {
+                if (Recorrer.hijos[i + 1] != null)
+                {
+                    RecursividadPreOrden(Recorrer.hijos[i + 1]);
+                }
+            }
+
+
+
+        }
+        public void EliminarArbol()
+        {
+            Raiz = null;
+        }
+
 
 
 

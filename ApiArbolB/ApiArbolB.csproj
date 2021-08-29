@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Libreria_ED2\Libreria_ED2.csproj" />
   </ItemGroup>
 
 

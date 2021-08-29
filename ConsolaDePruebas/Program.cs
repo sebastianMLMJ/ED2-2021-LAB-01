@@ -41,14 +41,14 @@ namespace ConsolaDePruebas
             tester.insertar(5);
             tester.insertar(6);
             tester.insertar(7);
-            //tester.insertar(8);
-            //tester.insertar(9);
-            //tester.insertar(10);
-            //tester.insertar(11);
-            //tester.insertar(12);
-            //tester.insertar(13);
-            //tester.insertar(14);
-            //tester.insertar(15);
+            tester.insertar(8);
+            tester.insertar(9);
+            tester.insertar(10);
+            tester.insertar(11);
+            tester.insertar(12);
+            tester.insertar(13);
+            tester.insertar(14);
+            tester.insertar(15);
             //tester.insertar(16);
             //tester.insertar(17);
             //tester.insertar(18);
@@ -95,14 +95,14 @@ namespace ConsolaDePruebas
             //tester.insertar(59);
             //tester.insertar(60);
 
-         
+            tester.PostOrden();
 
-            bool Existe = tester.Buscar(7);
-
-            if (Existe==true)
+            foreach (var item in tester.RecolectorRecorridos)
             {
-                Console.WriteLine("Si existe el valor en el arbol");
+                Console.WriteLine(item);
             }
+
+            Console.Read();
 
 
 
