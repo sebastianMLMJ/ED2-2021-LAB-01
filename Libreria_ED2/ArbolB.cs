@@ -94,6 +94,11 @@ namespace Libreria_ED2
             }
         }
         
+        public void EliminarArbol()
+        {
+            Raiz = null;
+        }
+
         #region Auxiliares insertar
         private void PosicionarInsertar(ref Nodo buscarHojaref,T dato)
         {
@@ -448,7 +453,6 @@ namespace Libreria_ED2
             }
             return posicion;
         }
-        #endregion
         private int BuscarNodoMasGrandeSubArbol(ref Nodo buscarEliminar, T dato, int posicion)
         {
             buscarEliminar = buscarEliminar.hijos[posicion];
@@ -717,6 +721,7 @@ namespace Libreria_ED2
 
 
         }
+        #endregion
     }
 
 
