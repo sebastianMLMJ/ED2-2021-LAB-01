@@ -86,6 +86,24 @@ namespace ApiArbolB.Controllers
             
             
 
+
+        }
+        [HttpDelete]
+        [Route("populate/{id}")]
+        public IActionResult Eliminar(string id)
+        {
+            Movie eliminar = new Movie();
+            eliminar.title = id;
+
+            if (arbolPeliculas.Buscar(eliminar) == true)
+            {
+                arbolPeliculas.eliminar(eliminar);
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
