@@ -75,7 +75,7 @@ namespace ApiArbolB.Controllers
                 var dato = JsonSerializer.Deserialize<List<Movie>>(contenido, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
                 foreach (var item in dato)
                 {
-                    arbolPeliculas.insertar(item);
+                    arbolPeliculas.Eliminar(item);
 
                 }
                 return Ok("Valores Insertados");

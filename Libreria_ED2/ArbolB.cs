@@ -400,7 +400,9 @@ namespace Libreria_ED2
                         Nodo buscarEliminarPosAnterior = buscarEliminar;
                         int posicionSubir = BuscarNodoMasGrandeSubArbol(ref buscarEliminar, dato, posicion);
                         buscarEliminarPosAnterior.datos[posicion] = buscarEliminar.datos[posicionSubir];
+                        dato = buscarEliminar.datos[posicionSubir];
                         buscarEliminar.datos[posicionSubir] = default;
+                         
                     }
                     else
                     {
@@ -493,7 +495,6 @@ namespace Libreria_ED2
             }
             return posicionHoja;
         }
-
         private bool PedirPrestadoHermano(ref Nodo buscarEliminar, T dato)
         {
             Nodo padreAux = buscarEliminar.padre;
@@ -504,7 +505,7 @@ namespace Libreria_ED2
             {
                 if (EqualityComparer<T>.Default.Equals(padreAux.datos[iterador], default) == false)
                 {
-                    if (dato.CompareTo(padreAux.datos[iterador]) == -1)
+                    if (dato.CompareTo(padreAux.datos[iterador]) == -1 || dato.CompareTo(padreAux.datos[iterador])==0)
                     {
                         raizComunEncontrada = true;
                         posicionRaizComun = iterador;
@@ -527,18 +528,18 @@ namespace Libreria_ED2
             {
                 if (EqualityComparer<T>.Default.Equals(padreAux.hijos[posicionRaizComun - 1].datos[((grado - 1) / 2)], default) == false)
                 {
-
+                    // abriendo espacio en nodo moviendo hacia izquierda
                     for (int i = grado - 1; i > 0; i--)
                     {
                         buscarEliminar.datos[i] = buscarEliminar.datos[i - 1];
                     }
+                    // abriendo espacio en los hijos
                     for (int i = grado; i > 0; i--)
                     {
                         buscarEliminar.hijos[i] = buscarEliminar.hijos[i - 1];
                     }
-
+                    //bajando la raiz 
                     buscarEliminar.datos[0] = padreAux.datos[posicionRaizComun - 1];
-
                     bool valorMayor = false;
                     iterador = grado - 1;
 
@@ -615,7 +616,6 @@ namespace Libreria_ED2
 
             return sePrestoValor;
         }
-
         private void FusionarNodos(ref Nodo buscarEliminar, T dato)
         {
             Nodo padreAux = buscarEliminar.padre;
@@ -626,7 +626,7 @@ namespace Libreria_ED2
             {
                 if (EqualityComparer<T>.Default.Equals(padreAux.datos[iterador], default) == false)
                 {
-                    if (dato.CompareTo(padreAux.datos[iterador]) == -1)
+                    if (dato.CompareTo(padreAux.datos[iterador]) == -1|| dato.CompareTo(padreAux.datos[iterador])==0)
                     {
                         raizComunEncontrada = true;
                         posicionRaizComun = iterador;
@@ -657,7 +657,7 @@ namespace Libreria_ED2
                     j++;
                 }
                 j = 0;
-                for (int i = posMinimaSiguiente + 1; i < grado; i++)
+                for (int i = posMinimaSiguiente + 1; i < grado+1; i++)
                 {
                     padreAux.hijos[posicionRaizComun - 1].hijos[i] = padreAux.hijos[posicionRaizComun].hijos[j];
                     if (padreAux.hijos[posicionRaizComun].hijos[j] != null)
@@ -693,7 +693,7 @@ namespace Libreria_ED2
                     iterador++;
                 }
                 iterador = 0;
-                for (int i = posMinimaSiguiente; i < grado; i++)
+                for (int i = posMinimaSiguiente; i < grado+1; i++)
                 {
                     padreAux.hijos[posicionRaizComun].hijos[i] = padreAux.hijos[posicionRaizComun + 1].hijos[iterador];
                     if (padreAux.hijos[posicionRaizComun].hijos[iterador] != null)
