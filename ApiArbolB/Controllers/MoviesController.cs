@@ -82,10 +82,8 @@ namespace ApiArbolB.Controllers
             }
             
             return NotFound("Arbol no inicializado");
-            
-            
-            
-
         }
+
+        
     }
 }
