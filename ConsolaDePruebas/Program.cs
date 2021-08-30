@@ -6,7 +6,7 @@ namespace ConsolaDePruebas
     {
         static void Main(string[] args)
         {
-            ArbolB<int> tester = new ArbolB<int>(3);
+            ArbolB<int> tester = new ArbolB<int>(5);
 
             tester.insertar(10);
             tester.insertar(20);
@@ -27,7 +27,14 @@ namespace ConsolaDePruebas
             tester.insertar(75);
             tester.insertar(85);
             tester.insertar(95);
+            tester.insertar(10);
             //19
+
+            tester.InOrden();
+            foreach (var item in tester.RecolectorRecorridos)
+            {
+                Console.WriteLine(item);
+            }
 
 
             tester.eliminar(60);

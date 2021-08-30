@@ -75,22 +75,25 @@ namespace Libreria_ED2
             }
             else
             {
-                Nodo hojaInsertar = Raiz;
-                PosicionarInsertar(ref hojaInsertar, dato);
-                hojaInsertar.InsertarOrdenar(dato);
-                while (EqualityComparer<T>.Default.Equals(hojaInsertar.datos[grado-1], default) == false)
-                {
-                    if (hojaInsertar.padre==null)
-                    {
-                        DividirRaiz(ref hojaInsertar);
-                    }
-                    else
-                    {
-                        DividirSubArbol(ref hojaInsertar);
-                    }
-                  
-                }
                 
+                if (Buscar(dato)==false)
+                {
+                    Nodo hojaInsertar = Raiz;
+                    PosicionarInsertar(ref hojaInsertar, dato);
+                    hojaInsertar.InsertarOrdenar(dato);
+                    while (EqualityComparer<T>.Default.Equals(hojaInsertar.datos[grado - 1], default) == false)
+                    {
+                        if (hojaInsertar.padre == null)
+                        {
+                            DividirRaiz(ref hojaInsertar);
+                        }
+                        else
+                        {
+                            DividirSubArbol(ref hojaInsertar);
+                        }
+
+                    }
+                }
             }
         }
         
@@ -249,7 +252,7 @@ namespace Libreria_ED2
             bool cambioNodo;
             int i;
             bool valorEncontrado = false;
-            do
+            while (buscarValor.hijos[0] != null && valorEncontrado == false)
             {
                 i = 0;
                 cambioNodo = false;
@@ -263,7 +266,7 @@ namespace Libreria_ED2
                             cambioNodo = true;
                             valorEncontrado = true;
                         }
-                        else if (dato.CompareTo(buscarValor.datos[i]) == -1)
+                        else if (dato.CompareTo(buscarValor.datos[i]) == -1 )
                         {
                             buscarValor = buscarValor.hijos[i];
                             cambioNodo = true;
@@ -280,7 +283,7 @@ namespace Libreria_ED2
                     }
                 }
 
-            } while (buscarValor.hijos[0] != null && valorEncontrado == false);
+            } //do wile
 
             if (buscarValor.hijos[0]==null)
             {
