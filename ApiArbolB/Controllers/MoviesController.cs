@@ -67,12 +67,12 @@ namespace ApiArbolB.Controllers
 
         [HttpPost]
         [Route("populate")]
-        public async Task<IActionResult> Post([FromForm] IFormFile file)
+        public async Task<IActionResult> Post([FromForm] IFormFile File)
         {
             if (ArbolInicializado == true)
             {
                 using var contenidoEnMemoria = new MemoryStream();
-                await file.CopyToAsync(contenidoEnMemoria); 
+                await File.CopyToAsync(contenidoEnMemoria); 
                 var contenido = Encoding.ASCII.GetString(contenidoEnMemoria.ToArray());
                 var dato = JsonSerializer.Deserialize<List<Movie>>(contenido, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
                 foreach (var item in dato)

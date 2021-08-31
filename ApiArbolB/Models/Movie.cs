@@ -8,10 +8,10 @@ namespace ApiArbolB.Models
     public class Movie:IComparable
     {
         public string director { get; set; }
-        public float imdbRatng { get; set; }
+        public float imdbRating { get; set; }
         public string genre { get; set; }
         public string releaseDate { get; set; }
-        public int rottenTomatoes { get; set; }
+        public int rottenTomatoesRating { get; set; }
         public string title { get; set; }
 
         public int CompareTo(object obj)
