@@ -22,6 +22,8 @@ namespace ApiArbolB.Controllers
         [Route("{traversal}")]
         public List<Movie> Recorridos(string traversal)
         {
+            
+
             if (ArbolInicializado == true && (traversal == "inorden" || traversal == "InOrden" || traversal == "inOrden"))
             {
                 arbolPeliculas.RecolectorRecorridos.Clear();
@@ -60,7 +62,7 @@ namespace ApiArbolB.Controllers
         {
             arbolPeliculas.EliminarArbol();
             ArbolInicializado = false;
-            return Ok();
+            return Ok("El arbol de peliculas ha sido eliminado");
         }
 
         [HttpPost]
@@ -75,7 +77,7 @@ namespace ApiArbolB.Controllers
                 var dato = JsonSerializer.Deserialize<List<Movie>>(contenido, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
                 foreach (var item in dato)
                 {
-                    arbolPeliculas.Eliminar(item);
+                    arbolPeliculas.insertar(item);
 
                 }
                 return Ok("Valores Insertados");
@@ -84,10 +86,6 @@ namespace ApiArbolB.Controllers
             return NotFound("Arbol no inicializado");
 
             
-            
-            
-
-
         }
         [HttpDelete]
         [Route("populate/{id}")]
@@ -99,7 +97,7 @@ namespace ApiArbolB.Controllers
             if (arbolPeliculas.Buscar(eliminar) == true)
             {
                 arbolPeliculas.eliminar(eliminar);
-                return Ok();
+                return Ok("Valor eliminado");
             }
             else
             {

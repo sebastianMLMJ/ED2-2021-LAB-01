@@ -6,7 +6,7 @@ namespace ConsolaDePruebas
     {
         static void Main(string[] args)
         {
-            ArbolB<int> tester = new ArbolB<int>(5);
+            ArbolB<int> tester = new ArbolB<int>(3);
 
             tester.insertar(10);
             tester.insertar(20);
@@ -40,10 +40,6 @@ namespace ConsolaDePruebas
             tester.eliminar(60);
             tester.eliminar(20);
             tester.eliminar(10);
-            tester.InOrden();
-            
-            
-            
             tester.eliminar(50);
             tester.eliminar(70);
             tester.eliminar(30);
@@ -59,34 +55,15 @@ namespace ConsolaDePruebas
             tester.eliminar(5);
             tester.eliminar(15);
             tester.eliminar(25);
-            
 
+            Console.WriteLine("Elementos despues de borrar");
+            tester.RecolectorRecorridos.Clear();
+            tester.InOrden();
+            foreach (var item in tester.RecolectorRecorridos)
+            {
+                Console.WriteLine(item);
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-            Console.Read();
-
-
-
-
-
-
-           
-            
-          
-
-           
-            
 
         }
     }

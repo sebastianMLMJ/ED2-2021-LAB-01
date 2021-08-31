@@ -96,12 +96,10 @@ namespace Libreria_ED2
                 }
             }
         }
-        
         public void EliminarArbol()
         {
             Raiz = null;
         }
-
         #region Auxiliares insertar
         private void PosicionarInsertar(ref Nodo buscarHojaref,T dato)
         {
@@ -725,6 +723,17 @@ namespace Libreria_ED2
 
         }
         #endregion
+        public bool ArbolExiste()
+        {
+            if (Raiz!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
 
