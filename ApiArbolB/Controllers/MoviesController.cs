@@ -66,7 +66,7 @@ namespace ApiArbolB.Controllers
         }
 
         [HttpPost]
-        [Route("populate")]
+        [Route("import")]
         public async Task<IActionResult> Post([FromForm] IFormFile File)
         {
             if (ArbolInicializado == true)
@@ -87,6 +87,23 @@ namespace ApiArbolB.Controllers
 
             
         }
+
+        [HttpPost]
+        [Route("populate")]
+        public IActionResult Insertar([FromBody] List<Movie> peliculas)
+        {
+            if (ArbolInicializado == true)
+            {
+                foreach (var item in peliculas)
+                {
+                    arbolPeliculas.insertar(item);
+                }
+                return Ok("valores insertados");
+            }
+
+            return NotFound("Arbol no inicializado");
+        }
+
         [HttpDelete]
         [Route("populate/{id}")]
         public IActionResult Eliminar(string id)
